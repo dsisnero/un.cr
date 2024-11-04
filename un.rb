@@ -5,7 +5,7 @@ module UN
   def self.help(argv : Array, output : IO = STDOUT)
     all = argv.empty?
     cmd = nil
-    messages = {} of String => String
+    messages = Hash(String, String).new
     store = ->(msg : String) { messages[cmd] = msg }
 
     File.open(__FILE__) do |me|
@@ -29,7 +29,7 @@ end
 def colorize
   begin
     require "irb/color"
-  rescue load_error
+  rescue LoadError
     raise "colorize requires irb 1.1.0 or later"
   end
   setup do |argv, _|
